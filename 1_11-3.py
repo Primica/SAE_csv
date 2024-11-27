@@ -261,15 +261,15 @@ if __name__ == "__main__":
     if transactions:
         CsvTransactionProcessor.construct_new_files_from_transactions(transactions)
 
-    # commandes = CsvTransactionProcessor.load_commandes("csv/commandes.csv")
+    commandes = CsvTransactionProcessor.load_commandes("csv/commandes.csv")
 
-    # average_orders = CsvTransactionProcessor.calculate_average_orders(commandes)
-    # print(f"Moyenne des commandes par client : {average_orders}")
+    average_orders = CsvTransactionProcessor.calculate_average_orders(commandes)
+    print(f"Moyenne des commandes par client : {average_orders}")
 
-    # max_client, max_orders = CsvTransactionProcessor.calculate_max_orders(commandes)
-    # print(f"Client avec le maximum de commandes : {max_client} ({max_orders} commandes)")
+    max_client, max_orders = CsvTransactionProcessor.calculate_max_orders(commandes)
+    print(f"Client avec le maximum de commandes : {max_client} ({max_orders} commandes)")
 
-    # max_category, max_products = CsvTransactionProcessor.calculate_max_products_by_category(transactions)
-    # print(f"Catégorie avec le maximum de produits commandés : {max_category} ({max_products} produits)")
+    max_category, max_products = CsvTransactionProcessor.calculate_max_products_by_category(transactions)
+    print(f"Catégorie avec le maximum de produits commandés : {max_category} ({max_products} produits)")
 
-    # print(calculate_average_products_per_category("transactions.csv"))
+    print(calculate_average_products_per_category("transactions.csv"))
