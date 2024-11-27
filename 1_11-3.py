@@ -209,27 +209,7 @@ class CsvTransactionProcessor:
         max_client = max(client_order_counts, key=client_order_counts.get, default=None)
         max_orders = client_order_counts[max_client] if max_client else 0
         return max_client, max_orders
-
-    """
-    Calcule la moyenne des produits par catégorie à partir d'une liste de transactions.
-
-    Args:
-        transactions (list): Une liste de dictionnaires représentant les transactions. 
-                             Chaque dictionnaire doit contenir les clés "catégorie" et "quantite".
-
-    Returns:
-        float: La moyenne des produits par catégorie. Retourne 0 si aucune catégorie n'est présente.
-    """
-    @staticmethod
-    def calculate_average_products_by_category(transactions):
-        category_product_counts = {}
-        for transaction in transactions:
-            category = transaction["catégorie"]
-            category_product_counts[category] = category_product_counts.get(category, 0) + transaction["quantite"]
-
-        total_products = sum(category_product_counts.values())
-        total_categories = len(category_product_counts)
-        return total_products / total_categories if total_categories > 0 else 0
+    
 
     """
     Calcule le nombre maximum de produits par catégorie à partir des transactions.
@@ -253,6 +233,27 @@ class CsvTransactionProcessor:
         max_products = category_product_counts[max_category] if max_category else 0
         return max_category, max_products
 
+def calculate_average_products_per_category(file_path):
+    category_product_counts = {}
+    category_transaction_counts = {}
+
+    with open(file_path, mode='r', encoding='utf-8') as file:
+        reader = csv.DictReader(file)
+        for row in reader:
+            category = row['catégorie']
+            quantity = int(row['quantité'])
+
+            if category not in category_product_counts:
+                category_product_counts[category] = 0
+                category_transaction_counts[category] = 0
+
+            category_product_counts[category] += quantity
+            category_transaction_counts[category] += 1
+
+    category_averages = {category: category_product_counts[category] / category_transaction_counts[category]
+                         for category in category_product_counts}
+
+    return category_averages
 
 
 if __name__ == "__main__":
@@ -268,8 +269,7 @@ if __name__ == "__main__":
     max_client, max_orders = CsvTransactionProcessor.calculate_max_orders(commandes)
     print(f"Client avec le maximum de commandes : {max_client} ({max_orders} commandes)")
 
-    avg_products_by_category = CsvTransactionProcessor.calculate_average_products_by_category(transactions)
-    print(f"Moyenne des produits commandés par catégorie : {avg_products_by_category}")
-
     max_category, max_products = CsvTransactionProcessor.calculate_max_products_by_category(transactions)
     print(f"Catégorie avec le maximum de produits commandés : {max_category} ({max_products} produits)")
+
+    print(calculate_average_products_per_category("transactions.csv"))
