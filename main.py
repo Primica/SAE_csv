@@ -6,6 +6,9 @@ class CsvTransactionProcessor:
     product_id_counter = 1
     order_id_counter = 1
 
+    """
+    Méthodes pour générer un identifiant client unique, en incrémentant un compteur de clients / produit / commandes.
+    """
     @staticmethod
     def generate_client_id():
         id = f"CL{CsvTransactionProcessor.client_id_counter:06d}"
@@ -24,6 +27,15 @@ class CsvTransactionProcessor:
         CsvTransactionProcessor.order_id_counter += 1
         return id
 
+    """
+    Charge les transactions à partir d'un fichier CSV.
+
+    Args:
+        file_path (str): Le chemin du fichier CSV à charger.
+
+    Returns:
+        list: Une liste de dictionnaires représentant les transactions.
+    """
     @staticmethod
     def load_transactions(file_path):
         with open(file_path, mode="r", encoding="utf-8-sig") as fichier:
@@ -44,6 +56,16 @@ class CsvTransactionProcessor:
                 transactions.append(transaction)
         return transactions
 
+
+    """
+    Charge les commandes à partir d'un fichier CSV.
+
+    Args:
+        file_path (str): Le chemin du fichier CSV à charger.
+
+    Returns:
+        list: Une liste de dictionnaires représentant les commandes.
+    """
     @staticmethod
     def load_commandes(file_path):
         with open(file_path, mode="r", encoding="utf-8-sig") as fichier:
@@ -62,6 +84,20 @@ class CsvTransactionProcessor:
                 commandes.append(commande)
         return commandes
 
+    """
+    Construit de nouveaux fichiers CSV à partir des transactions fournies.
+
+    Cette méthode crée trois fichiers CSV : clients.csv, produits.csv et commandes.csv.
+    - clients.csv contient les informations sur les clients.
+    - produits.csv contient les informations sur les produits.
+    - commandes.csv contient les informations sur les commandes.
+
+    Args:
+        transactions (list): Une liste de dictionnaires représentant les transactions. 
+
+    Raises:
+        KeyError: Si une clé requise est manquante dans une transaction.
+    """
     @staticmethod
     def construct_new_files_from_transactions(transactions):
         clients = {}
@@ -115,10 +151,31 @@ class CsvTransactionProcessor:
                     "date": transaction["date"]
                 })
 
+    """
+    Calcule le nombre de commandes passées par un client spécifique.
+
+    Args:
+        commandes (list): Liste de dictionnaires représentant les commandes.
+        client_id (int): Identifiant du client.
+
+    Returns:
+        int: Nombre de commandes passées par le client.
+    """
     @staticmethod
     def get_order_count_by_client(commandes, client_id):
         return sum(1 for commande in commandes if commande["identifiant_client"] == client_id)
 
+    """
+    Calcule la moyenne des commandes par client.
+
+    Cette méthode prend une liste de commandes et calcule le nombre moyen de commandes par client.
+
+    Args:
+        commandes (list): Une liste de dictionnaires représentant les commandes. Chaque dictionnaire doit contenir une clé "identifiant_client" correspondant à l'identifiant du client.
+
+    Returns:
+        float: Le nombre moyen de commandes par client. Retourne 0 si la liste des commandes est vide.
+    """
     @staticmethod
     def calculate_average_orders(commandes):
         client_order_counts = {}
@@ -126,10 +183,22 @@ class CsvTransactionProcessor:
             client_id = commande["identifiant_client"]
             client_order_counts[client_id] = client_order_counts.get(client_id, 0) + 1
 
-        total_orders = sum(client_order_counts.values())  # Total des commandes
-        total_clients = len(client_order_counts)  # Nombre total de clients
+        total_orders = sum(client_order_counts.values())  
+        total_clients = len(client_order_counts)  
         return total_orders / total_clients if total_clients > 0 else 0
 
+    """
+    Calcule le nombre maximum de commandes passées par un client.
+
+    Args:
+        commandes (list): Une liste de dictionnaires représentant les commandes. 
+                          Chaque dictionnaire doit contenir une clé "identifiant_client".
+
+    Returns:
+        tuple: Un tuple contenant l'identifiant du client avec le plus de commandes 
+               et le nombre de commandes passées par ce client. Si aucune commande 
+               n'est trouvée, retourne (None, 0).
+    """
     @staticmethod
     def calculate_max_orders(commandes):
         client_order_counts = {}
@@ -141,6 +210,16 @@ class CsvTransactionProcessor:
         max_orders = client_order_counts[max_client] if max_client else 0
         return max_client, max_orders
 
+    """
+    Calcule la moyenne des produits par catégorie à partir d'une liste de transactions.
+
+    Args:
+        transactions (list): Une liste de dictionnaires représentant les transactions. 
+                             Chaque dictionnaire doit contenir les clés "catégorie" et "quantite".
+
+    Returns:
+        float: La moyenne des produits par catégorie. Retourne 0 si aucune catégorie n'est présente.
+    """
     @staticmethod
     def calculate_average_products_by_category(transactions):
         category_product_counts = {}
@@ -152,6 +231,17 @@ class CsvTransactionProcessor:
         total_categories = len(category_product_counts)
         return total_products / total_categories if total_categories > 0 else 0
 
+    """
+    Calcule le nombre maximum de produits par catégorie à partir des transactions.
+
+    Args:
+        transactions (list): Une liste de dictionnaires représentant les transactions. 
+                             Chaque dictionnaire doit contenir les clés "catégorie" et "quantite".
+
+    Returns:
+        tuple: Une paire contenant la catégorie avec le plus grand nombre de produits et le nombre de produits dans cette catégorie.
+               Si aucune transaction n'est fournie, retourne (None, 0).
+    """
     @staticmethod
     def calculate_max_products_by_category(transactions):
         category_product_counts = {}
@@ -166,23 +256,18 @@ class CsvTransactionProcessor:
 
 
 if __name__ == "__main__":
-    # Charge les transactions et génère les fichiers CSV nécessaires
     transactions = CsvTransactionProcessor.load_transactions("transactions.csv")
-    # if transactions:
-    #     CsvTransactionProcessor.construct_new_files_from_transactions(transactions)
+    if transactions:
+        CsvTransactionProcessor.construct_new_files_from_transactions(transactions)
 
-    # Charge les commandes à partir du fichier généré
     commandes = CsvTransactionProcessor.load_commandes("csv/commandes.csv")
 
-    # Calcule la moyenne des commandes par client
     average_orders = CsvTransactionProcessor.calculate_average_orders(commandes)
     print(f"Moyenne des commandes par client : {average_orders}")
 
-    # Trouve le client avec le maximum de commandes
     max_client, max_orders = CsvTransactionProcessor.calculate_max_orders(commandes)
     print(f"Client avec le maximum de commandes : {max_client} ({max_orders} commandes)")
 
-    # Calcule la moyenne et le maximum des produits par catégorie
     avg_products_by_category = CsvTransactionProcessor.calculate_average_products_by_category(transactions)
     print(f"Moyenne des produits commandés par catégorie : {avg_products_by_category}")
 
