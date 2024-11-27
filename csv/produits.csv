@@ -1,32 +1,32 @@
-﻿identifiant_produit,libelle,catégorie,dernier_prix_connu
-PR000001,Roue codeuse,Composants servant d'interface humaine,2.36
-PR000002,Capteur de luminosité,Capteur,13.92
-PR000003,Afficheur,Composants servant d'interface humaine,26.28
-PR000004,Interrupteur,Composants servant d'interface humaine,9.03
-PR000005,Gyroscope,Capteur,10.62
-PR000006,Mémoire informatique,Composants d'électroniques numériques,24.25
-PR000007,Diode,Composants d'électroniques analogiques,24.02
-PR000008,Microcontrôleur,Composants d'électroniques numériques,28.06
-PR000009,Haut-parleur,Composants servant d'interface humaine,15.14
-PR000010,Thermistance,Capteur,20.86
-PR000011,Condensateur,Composants d'électroniques analogiques,33.64
-PR000012,Capteur de champ magnétique,Capteur,15.28
-PR000013,LED,Composants servant d'interface humaine,3.75
-PR000014,Opto-coupleur,Composants d'électroniques numériques,31.17
-PR000015,Quartz,Composants d'électroniques numériques,16.64
-PR000016,Microprocesseur,Composants d'électroniques numériques,6.38
-PR000017,Memristor,Composants d'électroniques analogiques,24.43
-PR000018,Potentiomètre,Composants servant d'interface humaine,8.29
-PR000019,Résistance,Composants d'électroniques analogiques,23.41
-PR000020,Capteur optique,Capteur,14.79
-PR000021,Transistor,Composants d'électroniques analogiques,33.63
-PR000022,Régulateur de tension,Composants d'électroniques analogiques,30.19
-PR000023,Microphone,Capteur,12.37
-PR000024,Inductance,Composants d'électroniques analogiques,12.29
-PR000025,Capteur de température,Capteur,26.41
-PR000026,Accéléromètre,Capteur,10.93
-PR000027,Buzzer,Composants servant d'interface humaine,31.83
-PR000028,Commutateur,Composants servant d'interface humaine,2.53
-PR000029,Caméra,Capteur,26.85
-PR000030,Capteur de pression,Capteur,12.1
-PR000031,Photocoupleur,Composants d'électroniques analogiques,10.28
+﻿identifiant_produit;libelle;catégorie;dernier_prix_connu
+PR000001;Roue codeuse;Composants servant d'interface humaine;2.36
+PR000002;Capteur de luminosité;Capteur;13.92
+PR000003;Afficheur;Composants servant d'interface humaine;26.28
+PR000004;Interrupteur;Composants servant d'interface humaine;9.03
+PR000005;Gyroscope;Capteur;10.62
+PR000006;Mémoire informatique;Composants d'électroniques numériques;24.25
+PR000007;Diode;Composants d'électroniques analogiques;24.02
+PR000008;Microcontrôleur;Composants d'électroniques numériques;28.06
+PR000009;Haut-parleur;Composants servant d'interface humaine;15.14
+PR000010;Thermistance;Capteur;20.86
+PR000011;Condensateur;Composants d'électroniques analogiques;33.64
+PR000012;Capteur de champ magnétique;Capteur;15.28
+PR000013;LED;Composants servant d'interface humaine;3.75
+PR000014;Opto-coupleur;Composants d'électroniques numériques;31.17
+PR000015;Quartz;Composants d'électroniques numériques;16.64
+PR000016;Microprocesseur;Composants d'électroniques numériques;6.38
+PR000017;Memristor;Composants d'électroniques analogiques;24.43
+PR000018;Potentiomètre;Composants servant d'interface humaine;8.29
+PR000019;Résistance;Composants d'électroniques analogiques;23.41
+PR000020;Capteur optique;Capteur;14.79
+PR000021;Transistor;Composants d'électroniques analogiques;33.63
+PR000022;Régulateur de tension;Composants d'électroniques analogiques;30.19
+PR000023;Microphone;Capteur;12.37
+PR000024;Inductance;Composants d'électroniques analogiques;12.29
+PR000025;Capteur de température;Capteur;26.41
+PR000026;Accéléromètre;Capteur;10.93
+PR000027;Buzzer;Composants servant d'interface humaine;31.83
+PR000028;Commutateur;Composants servant d'interface humaine;2.53
+PR000029;Caméra;Capteur;26.85
+PR000030;Capteur de pression;Capteur;12.1
+PR000031;Photocoupleur;Composants d'électroniques analogiques;10.28

@@ -69,7 +69,7 @@ class CsvTransactionProcessor:
     @staticmethod
     def load_commandes(file_path):
         with open(file_path, mode="r", encoding="utf-8-sig") as fichier:
-            lecteur = csv.reader(fichier, delimiter=',')
+            lecteur = csv.reader(fichier, delimiter=';')
             noms_colonnes = next(lecteur)
             commandes = []
             for ligne in lecteur:
@@ -103,7 +103,7 @@ class CsvTransactionProcessor:
         clients = {}
         with open('csv/clients.csv', mode='w', encoding='utf-8-sig', newline='') as fichier_clients:
             champs_clients = ["identifiant_client", "raison_sociale", "derniere_adresse_connue"]
-            writer_clients = csv.DictWriter(fichier_clients, fieldnames=champs_clients)
+            writer_clients = csv.DictWriter(fichier_clients, fieldnames=champs_clients, delimiter=';')
             writer_clients.writeheader()
 
             for transaction in transactions:
@@ -120,7 +120,7 @@ class CsvTransactionProcessor:
         produits = {}
         with open('csv/produits.csv', mode='w', encoding='utf-8-sig', newline='') as fichier_produits:
             champs_produits = ["identifiant_produit", "libelle", "catégorie", "dernier_prix_connu"]
-            writer_produits = csv.DictWriter(fichier_produits, fieldnames=champs_produits)
+            writer_produits = csv.DictWriter(fichier_produits, fieldnames=champs_produits, delimiter=';')
             writer_produits.writeheader()
 
             for transaction in transactions:
@@ -138,7 +138,7 @@ class CsvTransactionProcessor:
         with open('csv/commandes.csv', mode='w', encoding='utf-8-sig', newline='') as fichier_commandes:
             champs_commandes = ["identifiant_commande", "identifiant_client", "identifiant_produit", "quantite",
                                 "prix_unitaire", "date"]
-            writer_commandes = csv.DictWriter(fichier_commandes, fieldnames=champs_commandes)
+            writer_commandes = csv.DictWriter(fichier_commandes, fieldnames=champs_commandes, delimiter=';')
             writer_commandes.writeheader()
 
             for transaction in transactions:
@@ -261,15 +261,15 @@ if __name__ == "__main__":
     if transactions:
         CsvTransactionProcessor.construct_new_files_from_transactions(transactions)
 
-    commandes = CsvTransactionProcessor.load_commandes("csv/commandes.csv")
+    # commandes = CsvTransactionProcessor.load_commandes("csv/commandes.csv")
 
-    average_orders = CsvTransactionProcessor.calculate_average_orders(commandes)
-    print(f"Moyenne des commandes par client : {average_orders}")
+    # average_orders = CsvTransactionProcessor.calculate_average_orders(commandes)
+    # print(f"Moyenne des commandes par client : {average_orders}")
 
-    max_client, max_orders = CsvTransactionProcessor.calculate_max_orders(commandes)
-    print(f"Client avec le maximum de commandes : {max_client} ({max_orders} commandes)")
+    # max_client, max_orders = CsvTransactionProcessor.calculate_max_orders(commandes)
+    # print(f"Client avec le maximum de commandes : {max_client} ({max_orders} commandes)")
 
-    max_category, max_products = CsvTransactionProcessor.calculate_max_products_by_category(transactions)
-    print(f"Catégorie avec le maximum de produits commandés : {max_category} ({max_products} produits)")
+    # max_category, max_products = CsvTransactionProcessor.calculate_max_products_by_category(transactions)
+    # print(f"Catégorie avec le maximum de produits commandés : {max_category} ({max_products} produits)")
 
-    print(calculate_average_products_per_category("transactions.csv"))
+    # print(calculate_average_products_per_category("transactions.csv"))
